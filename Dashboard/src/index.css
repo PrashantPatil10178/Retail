@@ -1,0 +1,104 @@
+/* Add these styles to improve animation performance */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.will-change-transform {
+  will-change: transform;
+}
+
+.hardware-accelerated {
+  transform: translateZ(0);
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 10, 10, 15;
+  --background-end-rgb: 10, 10, 15;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  font-family: "Inter", sans-serif;
+  overflow-x: hidden;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+.animate-pulse-slow {
+  animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-tilt {
+  animation: tilt 10s infinite linear;
+}
+
+@keyframes tilt {
+  0%,
+  100% {
+    transform: rotate(-1deg);
+  }
+  50% {
+    transform: rotate(1deg);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Dashboard specific styles */
+.dashboard-card {
+  @apply bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700/50 rounded-xl p-6 transition-all duration-300;
+}
+
+.dashboard-card:hover {
+  @apply border-purple-500/30 shadow-lg shadow-purple-500/10;
+}
+
+.stat-card {
+  @apply bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-sm border border-gray-700/50 rounded-xl p-4 transition-all duration-300;
+}
+
+.stat-card:hover {
+  @apply border-purple-500/30 shadow-lg shadow-purple-500/10 transform scale-[1.02];
+}
+
+.grid-pattern {
+  background-image: radial-gradient(
+    rgba(168, 85, 247, 0.1) 1px,
+    transparent 1px
+  );
+  background-size: 20px 20px;
+}
