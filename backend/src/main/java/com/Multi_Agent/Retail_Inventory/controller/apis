@@ -1,0 +1,196 @@
+1.
+URL-POST "/api/demand/add"
+RequestBody-
+{
+  "product_id": "1234",
+  "date": "2025-04-01",
+  "store_id": "10",
+  "sales_quantity": 600,
+  "price": 70.00,
+  "promotions": "No",
+  "seasonality_factors": "Festival",
+  "external_factors": "Weather",
+  "demand_trend": "Stable",
+  "customer_segments": "Regular"
+}
+Response-"Product Added Successfully"
+
+2.
+URL-GET "/api/demand/history/{productId}/{storeId}"
+PathVariables-productId(String),storeId(String)
+Response-List of entities (Demand)
+
+3.
+URL-POST "api/inventory/add"
+RequestBody-
+{
+  "product_id": "1234",
+  "store_id": "10",
+  "stock_levels": 500,
+  "supplier_lead_time": 5,
+  "stockout_frequency": 1,
+  "reorder_point": 50,
+  "expiry_date": "2025-09-15",
+  "warehouse_capacity": 1000,
+  "order_fulfillment_time": 3
+}
+Response-"Product Added Successfully"
+
+4.
+URL-GET "/api/inventory/history/{productId}/{storeId}"
+PathVariables-productId(String),storeId(String)
+Response-List of entities (Inventory)
+
+5.
+URL POST "api/pricing/add"
+RequestBody-
+{
+  "product_id": "1234",
+  "store_id": "10",
+  "price": 50.75,
+  "competitor_prices": 48.90,
+  "discounts": 5.00,
+  "sales_volume": 1200,
+  "customer_reviews": 450,
+  "return_rate": 2.5,
+  "storage_cost": 3.75,
+  "elasticity_index": 1.2
+}
+Response-"Product Added Successfully"
+
+6.
+URL-GET "/api/pricing/history/{productId}/{storeId}"
+PathVariables-productId(String),storeId(String)
+Response-List of entities (Pricing)
+
+7.
+URL-POST "api/prediction/forecast/{month}"
+Path Variable - month(String)
+RequestBody-
+{
+  "product_id": "1234",
+  "date": "2025-04-01",
+  "store_id": "10",
+  "sales_quantity": 600,
+  "price": 70.00,
+  "promotions": "No",
+  "seasonality_factors": "None",
+  "external_factors": "Economic",
+  "demand_trend": "Stable",
+  "customer_segments": "Regular"
+}
+Response-
+{
+    "forecast": {
+        "month": "May 2025",
+        "predicted_demand": 420,
+        "confidence_interval": [
+            390,
+            450
+        ],
+        "method_used": "Regression Analysis"
+    }
+}
+
+8.
+URL-POST "api/prediction/reorder/{predicatedSales}"
+Path Variable - predicatedSales(Integer)
+RequestBody-
+{
+  "product_id": "1234",
+  "store_id": "10",
+  "stock_levels": 500,
+  "supplier_lead_time": 5,
+  "stockout_frequency": 1,
+  "reorder_point": 50,
+  "expiry_date": "2025-09-15",
+  "warehouse_capacity": 1000,
+  "order_fulfillment_time": 3
+}
+
+Response-
+{
+"reorder_prediction": {
+        "product_id": 1234,
+        "store_id": 10,
+        "recommended_order": 550,
+        "justification": "Based on predicted sales, lead time, current stock, and warehouse limits."
+    }
+}
+
+9.
+URL-POST "api/prediction/optimize/{strategy}"
+Path Variable - strategy(string)
+RequestBody-
+{
+  "product_id": "1234",
+  "store_id": "10",
+  "price": 50.75,
+  "competitor_prices": 55.90,
+  "discounts": 5.00,
+  "sales_volume": 1200,
+  "customer_reviews": 450,
+  "return_rate": 2.5,
+  "storage_cost": 3.75,
+  "elasticity_index": 1.2
+}
+Response-
+{
+"prediction": {
+        "product_id": 1234,
+        "store_id": 10,
+        "current_price": 50.75,
+        "suggested_price": 53.29,
+        "projected_profit_margin": "35%",
+        "strategy_alignment": "Supports 'increase' strategy by balancing elasticity and competitor pricing",
+        "risk_level": "Moderate"
+    }
+}
+
+10.
+URL-POST "api/retail/all/predictions"
+Path Variables - month(String),strategy(String)
+RequestBody-
+{
+  "product_id": "1234",
+  "date": "2025-04-01",
+  "store_id": "10",
+  "sales_quantity": 600,
+  "price": 70.00,
+  "promotions": "No",
+  "seasonality_factors": "Festival",
+  "external_factors": "Weather",
+  "demand_trend": "Stable",
+  "customer_segments": "Regular"
+}
+Response-
+{
+    "forecast": {
+        "month": "May 2025",
+        "predicted_demand": 420,
+        "confidence_interval": [
+            390,
+            450
+        ],
+        "method_used": "Regression Analysis"
+    }                                                                                                                                              for inventory reorder of product:-                                                                                      {
+    "reorder_prediction": {
+        "product_id": 1234,
+        "store_id": 10,
+        "recommended_order": 550,
+        "justification": "Based on predicted sales, lead time, current stock, and warehouse limits."
+    }                                                                                                                                                for priceoptimization:-                                                                                                           {
+    "prediction": {
+        "product_id": 1234,
+        "store_id": 10,
+        "current_price": 50.75,
+        "suggested_price": 53.29,
+        "projected_profit_margin": "35%",
+        "strategy_alignment": "Supports 'increase' strategy by balancing elasticity and competitor pricing",
+        "risk_level": "Moderate"
+    }
+}
+
+11.
+URL-GET "auto/schedule/monthly"
+Response-List of entities(ProcessedForecastResult)
